@@ -23,8 +23,8 @@ spring:
 #      ssl:
 #        enabled: ${SPRING_REDIS_SSL_ENABLED:false}
 #        bundle: ${SPRING_REDIS_SSL_BUNDLE:}
-#  cache:
-#    type: redis
+  cache:
+    type: redis
 #
 #  ssl:
 #    bundle:

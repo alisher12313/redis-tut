@@ -6,6 +6,7 @@ import com.pm.redistut.domain.ProductService;
 import com.pm.redistut.domain.db.ProductEntity;
 import com.pm.redistut.domain.service.DbProductService;
 import com.pm.redistut.domain.service.ManualCachingProductServiceImpl;
+import com.pm.redistut.domain.service.SpringAnnotationProductServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -27,6 +28,7 @@ public class ProductController {
     @Qualifier("productDtoMapper")
     private final ProductDtoMapper mapper;
     private final ManualCachingProductServiceImpl manualCachingProductService;
+    private final SpringAnnotationProductServiceImpl springAnnotationProductService;
 
     @PostMapping
     public ResponseEntity<ProductDto> create(
@@ -89,6 +91,7 @@ public class ProductController {
         return switch (cacheMode) {
             case NONE_CACHE -> dbProductService;
             case MANUAL_CACHE -> manualCachingProductService;
+            case SPRING_CACHE -> springAnnotationProductService;
         };
     }
 }
