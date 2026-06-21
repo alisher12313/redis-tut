@@ -2,7 +2,7 @@ spring:
   application:
     name: redis-course-test
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/postgres}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5000/postgres}
     username: ${SPRING_DATASOURCE_USERNAME:postgres}
     password: ${SPRING_DATASOURCE_PASSWORD:postgres}
     hikari:
@@ -17,38 +17,38 @@ spring:
   data:
     redis:
       host: ${SPRING_REDIS_HOST:localhost}
-      port: ${SPRING_REDIS_PORT:6379}
-      password: ${SPRING_REDIS_PASSWORD:}
-      username: ${SPRING_REDIS_USERNAME:}
-      ssl:
-        enabled: ${SPRING_REDIS_SSL_ENABLED:false}
-        bundle: ${SPRING_REDIS_SSL_BUNDLE:}
-  cache:
-    type: redis
-
-  ssl:
-    bundle:
-      pem:
-        selectel:
-          truststore:
-            certificate: classpath:certs/CA.pem
-
-
-server:
-  error:
-    include-stacktrace: never
-    include-message: always
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,metrics,prometheus,caches
-  metrics:
-    tags:
-      application: redis-spring-demo
-
-rate-limit:
-  enabled: ${RATE_LIMIT_ENABLED:true}
-  limit: ${RATE_LIMIT_LIMIT:10}
-  window-size: ${RATE_LIMIT_WINDOW_SIZE:60s}
+      port: ${SPRING_REDIS_PORT:6333}
+#      password: ${SPRING_REDIS_PASSWORD:}
+#      username: ${SPRING_REDIS_USERNAME:}
+#      ssl:
+#        enabled: ${SPRING_REDIS_SSL_ENABLED:false}
+#        bundle: ${SPRING_REDIS_SSL_BUNDLE:}
+#  cache:
+#    type: redis
+#
+#  ssl:
+#    bundle:
+#      pem:
+#        selectel:
+#          truststore:
+#            certificate: classpath:certs/CA.pem
+#
+#
+#server:
+#  error:
+#    include-stacktrace: never
+#    include-message: always
+#
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: health,metrics,prometheus,caches
+#  metrics:
+#    tags:
+#      application: redis-spring-demo
+#
+#rate-limit:
+#  enabled: ${RATE_LIMIT_ENABLED:true}
+#  limit: ${RATE_LIMIT_LIMIT:10}
+#  window-size: ${RATE_LIMIT_WINDOW_SIZE:60s}

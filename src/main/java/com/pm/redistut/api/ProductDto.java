@@ -1,5 +1,7 @@
 package com.pm.redistut.api;
 
+import com.pm.redistut.domain.db.ProductEntity;
+
 import java.math.BigDecimal;
 import java.time.Instant;
 

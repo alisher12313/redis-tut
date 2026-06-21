@@ -2,6 +2,8 @@ package com.pm.redistut.domain.db;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 import org.springframework.data.annotation.Id;
 
 import java.math.BigDecimal;
@@ -16,16 +18,11 @@ import java.time.Instant;
 @NoArgsConstructor
 public class ProductEntity {
 
-    @Id
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "product_id_seq"
-    )
-    @SequenceGenerator(
-            name = "product_id_seq",
-            sequenceName = "product_id_seq",
-            allocationSize = 1
-    )
+    @jakarta.persistence.Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_id_seq")
+    @SequenceGenerator(name = "product_id_seq", sequenceName = "product_id_seq", allocationSize = 1)
+    @Column(name = "id", nullable = false)
+    @JdbcTypeCode(SqlTypes.BIGINT)
     private Long id;
 
     @Column(nullable = false)
