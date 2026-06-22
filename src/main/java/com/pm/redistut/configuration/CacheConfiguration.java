@@ -37,12 +37,12 @@ public class CacheConfiguration {
     }
 
     @Bean
-    public RedisTemplate<String, ProductEntity> redisProductTemplate(ObjectMapper objectMapper) {
-        RedisTemplate<String, ProductEntity> redisTemplate = new RedisTemplate<>();
+    public RedisTemplate<String, Object> redisTemplate(ObjectMapper objectMapper) {
+        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(jedisConnectionFactory());
         redisTemplate.setKeySerializer(new StringRedisSerializer());
 
-        var serializer = new Jackson2JsonRedisSerializer<>(objectMapper, ProductEntity.class);
+        var serializer = new Jackson2JsonRedisSerializer<>(objectMapper, Object.class);
         redisTemplate.setValueSerializer(serializer);
 
         redisTemplate.afterPropertiesSet();
@@ -51,7 +51,7 @@ public class CacheConfiguration {
 
     @Bean
     public CacheManager cacheManager(ObjectMapper objectMapper) {
-        var serializer = new Jackson2JsonRedisSerializer<>(objectMapper, ProductEntity.class);
+        var serializer = new Jackson2JsonRedisSerializer<>(objectMapper, Object.class);
 
         RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig();
         config.entryTtl(Duration.ofMinutes(1));
@@ -61,7 +61,7 @@ public class CacheConfiguration {
         config.serializeValuesWith(RedisSerializationContext.SerializationPair
                 .fromSerializer(serializer));
 
-        return RedisCacheManager.builder()
+        return RedisCacheManager.builder(jedisConnectionFactory())
                 .cacheDefaults(config)
                 .transactionAware()
                 .build();

@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 public class ManualCachingProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
-    private final RedisTemplate<String, ProductEntity> redisTemplate;
+    private final RedisTemplate<String, Object> redisTemplate;
     private final ObjectMapper objectMapper;
 
     private final static String PRODUCT_CACHE_PREFIX = "product:";
@@ -64,7 +64,7 @@ public class ManualCachingProductServiceImpl implements ProductService {
         log.info("Getting product: id={}", id);
         var cacheKey = PRODUCT_CACHE_PREFIX + id;
 
-        ProductEntity objectFromCache = redisTemplate.opsForValue().get(cacheKey);
+        ProductEntity objectFromCache = (ProductEntity) redisTemplate.opsForValue().get(cacheKey);
 
         if (objectFromCache != null) {
             log.info("Getting product from cache: id={}", id);
